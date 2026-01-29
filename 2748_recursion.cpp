@@ -1,14 +1,11 @@
 #include <iostream>
 using namespace std;
 
-unsigned long long fibonacci(unsigned long long small, unsigned long long big,
-                             int n, int i) {
+unsigned long long fibonacci(int n, unsigned long long small,
+                             unsigned long long big) {
   // 재귀 종료 조건
-  if (i > n - 2) {
-    return big;
-  }
-  unsigned long long target = small + big;
-  return fibonacci(big, target, n, i + 1);
+  if (n < 2) return big;
+  return fibonacci(n - 1, big, small + big);
 }
 
 int main(void) {
@@ -21,8 +18,6 @@ int main(void) {
   // 마지막 수를 출력함
   int n;
   cin >> n;
-  unsigned long long f0 = 0;
-  unsigned long long f1 = 1;
-  unsigned long long target = fibonacci(0, 1, n, 0);
-  cout << target << endl;
+
+  cout << fibonacci(n, 0, 1) << endl;
 }
