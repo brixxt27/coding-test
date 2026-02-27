@@ -12,9 +12,9 @@ using namespace std;
  * ...
  * 5^n 배수의 개수
  */
-int getFiveCounts(int N) {
-  int cnt = 0;
-  for (int i = 5; i <= N; i *= 5) {
+unsigned long long getCounts(int N, int num) {
+  unsigned long long cnt = 0;
+  for (unsigned long long i = num; i <= N; i *= num) {
     unsigned long long div = N / i;
     if (div == 0) {
       break;
@@ -24,8 +24,23 @@ int getFiveCounts(int N) {
   return cnt;
 }
 
+unsigned long long getTotalCnt(int n, int m) {
+  unsigned long long twoCounts =
+      getCounts(n, 2) - getCounts(m, 2) - getCounts(n - m, 2);
+  unsigned long long fiveCounts =
+      getCounts(n, 5) - getCounts(m, 5) - getCounts(n - m, 5);
+
+  if (twoCounts > fiveCounts) {
+    return fiveCounts;
+  }
+  return twoCounts;
+}
+
+/**
+ * nCm = n! / m! * (n - m)!
+ */
 int main() {
-  int N;
-  cin >> N;
-  cout << getFiveCounts(N) << endl;
+  int n, m;
+  cin >> n >> m;
+  cout << getTotalCnt(n, m) << endl;
 }
