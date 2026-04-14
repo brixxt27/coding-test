@@ -10,16 +10,25 @@ using namespace std;
  * @param len 배열의 길이는 이것이다.
  */
 void insert(int idx, int num, int arr[], int& len){
-	if (len < idx || idx < 0) return;
-
-	/**
-	 * idx가 0보다 작을 때 또는 len 보다 클 때 종료
-	 * 배열의 총 길이는 10으로 여기에서 별도로 할당 받고 해제하는 것을 고려하지 않는 것으로 보임
-	 */
+  // arr를 idx부터 len + 1만큼 뒤로 미루기
+  // for (int i = 0; i < len - idx; i++) {
+  //   arr[len - i] = arr[len - i - 1];
+  // }
+  for (int i = len; i > idx; i--)
+    arr[i] = arr[i - 1];
+  // arr idx에 num 넣기
+  arr[idx] = num;
+  // 길이 높여주기
+  len++;
 }
 
 void erase(int idx, int arr[], int& len){
-  
+  // idx + i에 idx + i + 1 대입
+  for (int i = 0; i < len - idx - 1; i++) {
+    arr[idx + i] = arr[idx + i + 1];
+  }
+  // len 감소
+  len--;
 }
 
 void printArr(int arr[], int& len){
